@@ -24,7 +24,7 @@ Article.prototype.toHtml = function() {
   $newArticle.find('address a').text(this.author);
   $newArticle.attr('href', this.authorUrl);
   $newArticle.find('h1').text(this.title);
-  $newArticle.find('article-body').text(this.body);
+  $newArticle.find('section.article-body').html(this.body);
   $newArticle.attr('datetime', this.publishedOn);
   $newArticle.find('time').text(this.publishedOn);
 
@@ -36,7 +36,7 @@ Article.prototype.toHtml = function() {
   $newArticle.append('<hr>');
 
   // DONE: This cloned article is no longer a template, so we should remove that class...
-  $("article.template").remove();
+  $newArticle.removeClass('template');
   return $newArticle;
 };
 
