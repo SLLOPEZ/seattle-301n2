@@ -32,7 +32,9 @@ articleView.handleAuthorFilter = function() {
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
-
+      $('article').hide();
+      console.log($('data-author=' + $(this).val()).show());
+      console.log($(this).val());
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
@@ -51,12 +53,15 @@ articleView.handleCategoryFilter = function() {
 };
 
 articleView.handleMainNav = function() {
-  // TODO: Add an event handler to .main-nav element that will power the Tabs feature.
+  // DONE: Add an event handler to .main-nav element that will power the Tabs feature.
   //       Clicking any .tab element should hide all the .tab-content sections, and then reveal the
   //       single .tab-content section that is associated with the clicked .tab element.
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked.
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav').on('click', 'li', function() {
+    $('.tab-content').hide();
+    $('#' + $(this).data('content')).fadeIn();
+  });
 
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
 };
@@ -72,5 +77,9 @@ articleView.setTeasers = function() {
 
 };
 
-// TODO: Call all of the above functions, once we are sure the DOM is ready.
-$();
+// DONE: Call all of the above functions, once we are sure the DOM is ready.
+$(articleView.populateFilters());
+$(articleView.handleAuthorFilter());
+$(articleView.handleCategoryFilter());
+$(articleView.handleMainNav());
+$(articleView.setTeasers());
