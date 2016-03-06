@@ -35,6 +35,7 @@ articleView.handleAuthorFilter = function() {
       $('article').hide();
       console.log($('data-author=' + $(this).val()).show());
       console.log($(this).val());
+      //NOTE FOR STEPH AND JOE:  We need to find how to use the article with the data-attribute of this.val 
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
