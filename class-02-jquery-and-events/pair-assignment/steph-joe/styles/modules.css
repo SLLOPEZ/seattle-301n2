@@ -19,7 +19,7 @@
   list-style: none;
 }
 
-/* TODO: Style the filters so they look good on small screens:
+/* DONE: Style the filters so they look good on small screens:
     Use the full width, and remove the list bullet. */
 
 #filters {
@@ -27,7 +27,7 @@
 }
 
 #filters select {
-
+  width: 100%;
 }
 
 .template {
