@@ -18,11 +18,11 @@
         - If your object doesn't have values you need yet, you can add those properties in the model.
     -->
     <script id="test" type="text/x-handlebars-template">
-      <article class="" data-category="{{category}}">
+      <article class="article" data-author="{{author}}" data-category="{{category}}">
         <header>
           <h1>{{title}}</h1>
           <div class="byline">
-            By <address><a href="{{{authorUrl}}}">  {{author}}</a></address> published<time pubdate datetime="2000-01-01"> {{publishedOn}}</time>
+            By <address><a href="{{{authorUrl}}}"> {{author}}</a></address> published<time pubdate datetime="2000-01-01"> {{publishedOn}}</time>
           </div>
         </header>
         <section class="article-body">
@@ -66,7 +66,7 @@
             </li>
           </ul>
         </div>
-        <div id="content-placeholder">work please</div>
+        <div id="content-placeholder"></div>
       </section>
       <section id="about" class="tab-content">
         <header>
