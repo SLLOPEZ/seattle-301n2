@@ -34,8 +34,8 @@
     <main class="clearfix">
       <h1>Blog Stats</h1>
       <section id="blog-stats">
-        <dt>Total articles:</dt> <dd class="articles"></dd>
-        <dt>Total words:</dt> <dd class="words"></dd>
+        <dt>Total articles:</dt><dd class="articles">{{Article.all.length}}</dd>
+        <dt>Total words:</dt> <dd class="words">{{Article.numWordsAll}}</dd>
         <h2>Author Stats</h2>
         <p><em>Details on who is writing, and how much writing they are doing...</em></p>
         <ul class="author-stats">
@@ -49,11 +49,17 @@
 
     <script src="/vendor/scripts/jquery-2.1.4.js"></script>
     <script src="/vendor/scripts/handlebars.js"></script>
+    <script src="/vendor/scripts/marked.js"></script>
     <script src="/scripts/article.js"></script>
     <script src="/scripts/articleView.js"></script>
     <script>
-      // TODO: After we fetch and load all the articles, what view function do we want to run next?
+      // DONE: After we fetch and load all the articles, what view function do we want to run next?
       // Let's pass in a callback function, to determine what happens AFTER all articles are loaded.
+      Article.fetchAll('load',function(rawData){
+        Article.numWordsAll();
+        Article.allAuthors();
+        Article.numWordsByAuthor();
+      });
     </script>
   </body>
 </html>
