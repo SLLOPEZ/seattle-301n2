@@ -114,8 +114,14 @@
   };
 
   articleView.initAdminPage = function() {
-    // TODO: Call the Handlebars `.compile` function, which will return a function for you to use where needed.
-    var template; // = ...?
+    // DONE: Call the Handlebars `.compile` function, which will return a function for you to use where needed.
+    // = ...?
+    var template = $('#blog-stats').html;
+    var templateScript = Handlebars.compile(template);
+    var context = {'rawData' : 'JSON.parse(rawData)'}
+    var html = templateScript(context);
+    $(document.body).append(html);
+
 
     // DONE: We use `forEach` here because we are relying on the side-effects of the callback function:
     // appending to the DOM.

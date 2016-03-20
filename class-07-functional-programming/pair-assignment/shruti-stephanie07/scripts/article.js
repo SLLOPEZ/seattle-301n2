@@ -1,13 +1,14 @@
 // DONE: Wrap the entire contents of this file in an IIFE.
 // Pass in to the IIFE a module, upon which objects can be attached for later access.
-(function Article (rawData) {
-  this.author = rawData.author;
-  this.authorUrl = rawData.authorUrl;
-  this.title = rawData.title;
-  this.category = rawData.category;
-  this.body = rawData.body;
-  this.publishedOn = rawData.publishedOn;
-}());
+(function(module) {
+function Article (opts) {
+  this.author = opts.author;
+  this.authorUrl = opts.authorUrl;
+  this.title = opts.title;
+  this.category = opts.category;
+  this.body = opts.body;
+  this.publishedOn = opts.publishedOn;
+};
 
 Article.all = [];
 
@@ -61,12 +62,17 @@ Article.fetchAll = function() {
 Article.numWordsAll = function() {
   return Article.all.map(function(article) {
     // return // Get the total number of words in this article
-    return 'Total words'+ articles.length;
+    // var articleContent = localStorage.rawData
+    // articleContent.split(' ')
+    // console.log(articleContent.length)
+    Article.all.length;
   })
   .reduce(function(a, b) {
     // return // Sum up all the values in the collection
-    return a+b;
-  })
+    return a+b ;
+  },0);
+  console.log(article.length)
+  console.log('work')
 };
 
 // DONE: Chain together a `map` and a `reduce` call to produce an array of unique author names.
@@ -99,11 +105,20 @@ Article.allAuthors = function() {
 Article.numWordsByAuthor = function() {
   // DONE: Transform each author string into an object with 2 properties: One for
   // the author's name, and one for the total number of words across all articles written by the specified author.
-  JSON.parse(rawData.author)
-  return Article.allAuthors().map(function(author) {
-    return {
+  // JSON.parse(rawData.author)
+  // return Article.allAuthors().map(function(author) {
+  //   return {
       // someKey: someValOrFunctionCall().map(...).reduce(...), ...
-      rawData + ':'+ Article.numWordsAll + 'written';
-    }
-  })
+      // rawData: Article.numWordsAll.reduce()
+//       author.reduce(function(rawData){
+//         return{
+//           author: rawData.author,
+//           numWords: Article.numWordsAll,
+//         }
+//       })
+//
+//     }
+//   })
 };
+module.Article = Article;
+})(window);
