@@ -61,7 +61,7 @@ nav.main-nav.icon-menu::before {
          - Main should be all on one row, with padding spaced better for a larger screen.
          - Just, ya know, try to make it look good! */
 /* @media only screen... */
-@media only screen and (min-width: 992px) {
+@media screen and (min-width: 900px) {
   nav.main-nav.icon-menu::before {
     display: none;
   }

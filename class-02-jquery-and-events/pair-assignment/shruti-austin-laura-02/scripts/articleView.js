@@ -119,6 +119,10 @@ articleView.setTeasers = function() {
   });
 };
 
+$('.main-nav icon-menu').on(click,function(){
+  $(icon-menu).hide();
+})
+
 // DONE: Call all of the above functions, once we are sure the DOM is ready.
 $(document).ready(function() {
   articleView.populateFilters();

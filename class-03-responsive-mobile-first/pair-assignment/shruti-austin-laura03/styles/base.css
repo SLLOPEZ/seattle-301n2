@@ -5,6 +5,7 @@ img {
 }
 
 body {
+  width:100%;
   line-height: 1.5;
   font-size: 100%;
   color: #313131;
