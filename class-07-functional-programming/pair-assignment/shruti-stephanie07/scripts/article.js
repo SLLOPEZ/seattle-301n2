@@ -36,6 +36,8 @@ Article.loadAll = function(rawData) {
     return new Article(ele);
   });
 };
+// .map will create a new array with the thing we are passing
+
 
 // This function will retrieve the data from either a local or remote source,
 // and process it, then hand off control to the View.
@@ -45,80 +47,113 @@ Article.loadAll = function(rawData) {
 // to execute once the loading of articles is done. We do this because we might want
 // to call other view functions, and not just this initIndexPage() that we are replacing.
 // Now, instead of calling articleView.initIndexPage(), we can simply run our callback.
-Article.fetchAll = function() {
+Article.fetchAll = function(initIndexPage) {
   if (localStorage.rawData) {
     Article.loadAll(JSON.parse(localStorage.rawData));
     articleView.initIndexPage();
   } else {
-    $.getJSON('/data/hackerIpsum.json', function(rawData) {
+    $.getJSON('data/hackerIpsum.json', function(rawData) {
       Article.loadAll(rawData);
       localStorage.rawData = JSON.stringify(rawData); // Cache the json, so we don't need to request it next time.
       articleView.initIndexPage();
     });
   }
+
+  Article.numWordsAllCorrect();
 };
 
+// -----------------------------------------------------
+
 // DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
-Article.numWordsAll = function() {
-  return Article.all.map(function(article) {
-    // return // Get the total number of words in this article
-    // var articleContent = localStorage.rawData
-    // articleContent.split(' ')
-    // console.log(articleContent.length)
-    Article.all.length;
+
+Article.numWordsAllCorrect = function() {
+  var totCount =  Article.all.map(function(article) {
+    // Get the total number of words in this article
+    //var articleContent = localStorage.rawData
+    var wordCount = article.body.split(' ').length
+    console.log(wordCount)
+    return wordCount;
+
   })
   .reduce(function(a, b) {
     // return // Sum up all the values in the collection
     return a+b ;
   },0);
-  console.log(article.length)
-  console.log('work')
+  console.log(totCount);
 };
+// -----------------------------------------------------
+
 
 // DONE: Chain together a `map` and a `reduce` call to produce an array of unique author names.
-Article.allAuthors = function() {
-  // return // Don't forget to read the docs on map and reduce!
-  var chainedAuthors = author.filter(function(){
-     return category === 'firewall';
-  }). map(function(author) {
-  	return {
-  	title: rawData.title,
-  	author:	rawData.author,
-  	authorUrl:rawData.authorUrl,
-  	body:rawData.body
-  	}
-  })
-};
+// Don't forget to read the docs on map and reduce!
 
-//
-// var chainedAuthors = author.filter(function(){
-//    return category === 'firewall';
-// }). map(function(author) {
-// 	return {
-// 	title: rawData.title,
-// 	author:	rawData.author,
-// 	authorUrl:rawData.authorUrl,
-// 	body:rawData.body
-// 	}
-// })
-//
-Article.numWordsByAuthor = function() {
+Article.allAuthors = function(){
+  return Article.all.map(function(article){
+    return article.author;
+  }).reduce(function(a,list){
+    if(a.indexOf(list)<0){
+      a.push(list)
+    }
+    return a;
+  },[])
+}
+
+
+
+
   // DONE: Transform each author string into an object with 2 properties: One for
   // the author's name, and one for the total number of words across all articles written by the specified author.
-  // JSON.parse(rawData.author)
-  // return Article.allAuthors().map(function(author) {
-  //   return {
-      // someKey: someValOrFunctionCall().map(...).reduce(...), ...
-      // rawData: Article.numWordsAll.reduce()
-//       author.reduce(function(rawData){
-//         return{
-//           author: rawData.author,
-//           numWords: Article.numWordsAll,
-//         }
-//       })
-//
-//     }
-//   })
-};
+
+Article.numWordsByAuthor = function (){
+  return Article.allAuthors().map(function(name){
+    return {
+      name:name,
+      numWords:Article.all.map(function(article){
+        if(article.author === name){
+          var wordArray = article.body.split(" ");
+          return wordArray.length;
+        }
+        return 0;
+      }) .reduce(function(wordCount,numWords){
+          return wordCount + numWords;
+      })
+    }
+  })
+}
+
+//making Article avavible
+// we can call module.banana =Article;
 module.Article = Article;
 })(window);
+// --------------------------------------------------------
+                // FROM CODE REVIEW- Remove before pushing
+// --------------------------------------------------------
+// How we are getting from no. of author names to wordCount(text)
+// Article.numWordsByAuthor = function (){
+//   return Article.allAuthors().map(function(name){
+//     return {
+//       name:name,
+//       numWords:Article.all.map(function(article){
+//         if(article.author === name){
+//           var wordArray = article.body.split(" ");
+//           return wordArray.length;
+//         }
+//         return 0;
+//       }) .reduce(function(wordCount,numWords){
+//           return wordCount + numWords;
+//       })
+//     }
+//   })
+// }
+//--------------------------------------------------------
+// Article.allAuthors = function(){
+//   return Article.all.map(function(article){
+//     return article.author;
+//   }).reduce(function(a,list){
+//     if(a.indexOf(list)<0){
+//       a.push(list)
+//     }
+//     return a;
+//   },[])
+// }
+//--------------------------------------------------------

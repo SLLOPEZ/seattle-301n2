@@ -116,11 +116,13 @@
   articleView.initAdminPage = function() {
     // DONE: Call the Handlebars `.compile` function, which will return a function for you to use where needed.
     // = ...?
-    var template = $('#blog-stats').html;
-    var templateScript = Handlebars.compile(template);
-    var context = {'rawData' : 'JSON.parse(rawData)'}
-    var html = templateScript(context);
-    $(document.body).append(html);
+    var template =  Handlebars.compile($('#author-template').html());
+    // var templateScript = Handlebars.compile(template);
+    // var context = {'rawData' : 'JSON.parse(rawData)'}
+    // var html = templateScript(context);
+
+    // var template = Han
+    // $(document.body).append(html);
 
 
     // DONE: We use `forEach` here because we are relying on the side-effects of the callback function:
@@ -128,7 +130,7 @@
     // The callback is not required to return anything.
     Article.numWordsByAuthor().forEach(function(stat) {
       $('.author-stats').append(template(stat));
-    })
+    });
 
     // DONE: Simply write the correct values to the page:
     $('#blog-stats .articles').text(Article.all.length);
