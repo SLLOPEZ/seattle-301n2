@@ -34,7 +34,7 @@
     <main class="clearfix">
       <h1>Blog Stats</h1>
       <section id="blog-stats">
-        <dt>Total articles:</dt><dd class="articles"></dd>
+        <dt>Total articles:</dt> <dd class="articles"></dd>
         <dt>Total words:</dt> <dd class="words"></dd>
         <h2>Author Stats</h2>
         <p><em>Details on who is writing, and how much writing they are doing...</em></p>
@@ -55,11 +55,12 @@
     <script>
       // DONE: After we fetch and load all the articles, what view function do we want to run next?
       // Let's pass in a callback function, to determine what happens AFTER all articles are loaded.
-      Article.fetchAll('load',function(rawData){
-        Article.numWordsAll();
-        Article.allAuthors();
-        Article.numWordsByAuthor();
-      });
+      // Article.fetchAll('load',function(rawData){
+      //   Article.numWordsAll();
+      //   Article.allAuthors();
+      //   Article.numWordsByAuthor();
+      // });
+        Article.fetchAll(articleView.initAdminPage);
     </script>
   </body>
 </html>
