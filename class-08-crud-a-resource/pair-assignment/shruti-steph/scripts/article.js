@@ -22,7 +22,7 @@
   // DONE: Set up a DB table for articles.**
   Article.createTable = function(callback) {
     webDB.execute(
-      'CREATE TABLE article_table(title, category, author, authorURL, publishedOn, body)',
+      'CREATE TABLE tableArticle(title, category, author, authorURL, publishedOn, body)',
       function(result) {
         console.log('Successfully set up the articles table.', result);
         if (callback) callback();
@@ -33,7 +33,7 @@
   // DONE: Correct the SQL to delete all records from the articles table.**
   Article.truncateTable = function(callback) {
     webDB.execute(
-      'DELETE * FROM article_table;',
+      'DELETE * FROM tableArticle;',
       callback
     );
   };
@@ -44,8 +44,8 @@
     webDB.execute(
       [
         {
-          'sql': 'INSERT INTO article_table VALUES (?, ?, ?, ?, ?, ?);',
-          'data': [this.title, this.category, this.author, this.authorURL, this.publishedOn, this.body],
+          'sql': 'INSERT INTO tableArticle VALUES (?, ?, ?, ?, ?, ?);',
+          'data': '[this.title, this.category, this.author, this.authorURL, this.publishedOn, this.body]',
         }
       ],
       callback
@@ -57,7 +57,7 @@
     webDB.execute(
       [
         {
-          /* ... */
+          'DELETE FROM tableArticle WHERE rowid = 1'
         }
       ],
       callback
@@ -68,7 +68,8 @@
   Article.prototype.updateRecord = function(callback) {
     webDB.execute(
       [
-        /* ... */
+        'UPDATE tableArticle VALUES (?, ?, ?, ?, ?, ?);',
+        '[this.title, this.category, this.author, this.authorURL, this.publishedOn, this.body]',
       ],
       callback
     );
@@ -88,7 +89,8 @@
     webDB.execute('', function(rows) {
       if (rows.length) {
         // Now instanitate those rows with the .loadAll function, and pass control to the view.
-
+        Article.loadAll(rows);
+        articleView.initIndexPage();
       } else {
         $.getJSON('/data/hackerIpsum.json', function(rawData) {
           // Cache the json, so we don't need to request it next time:
@@ -96,11 +98,12 @@
             var article = new Article(item); // Instantiate an article based on item from JSON
             // Cache the newly-instantiated article in DB:
 
+
           });
           // Now get ALL the records out the DB, with their database IDs:
-          webDB.execute('', function(rows) {
+          webDB.execute('READ', function(rows) {
             // Now instanitate those rows with the .loadAll function, and pass control to the view.
-
+            Article.loadAll(rows);
           });
         });
       }
