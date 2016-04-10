@@ -12,8 +12,10 @@
     return template(article);
   };
 
-  // COMMENT: What is it's execution path?
   //This method is populating the filter options through the handlebar template.
+
+  // Execution Path: This method filters the author data using map method and
+  // return an array  of the author selected
   articleView.populateFilters = function() {
     var options,
       template = Handlebars.compile($('#option-template').text());
@@ -38,50 +40,16 @@
     });
   };
 
-  // COMMENT: What is it's execution path?
   // This method is handling filters, when the user selects a filter it changes it as per the selection.
+
+  // Execution Path: This method filters all the data for either author or category.
+  // and fires an event and get the info. from database and renders the specific ID data.
   articleView.handleFilters = function() {
     $('#filters').one('change', 'select', function() {
       resource = this.id.replace('-filter', '');
       page('/' + resource + '/' + $(this).val().replace(/\W+/g, '+')); // Replace any/all whitespace with a +
     });
   };
-  // articleView.handleAuthorFilter = function() {
-  //   $('#author-filter').on('change', function() {
-  //     if ($(this).val()) {
-  //       $('article').hide();
-  //       $('article[data-author="' + $(this).val() + '"]').fadeIn();
-  //     } else {
-  //       $('article').fadeIn();
-  //       $('article.template').hide();
-  //     }
-  //     $('#category-filter').val('');
-  //   });
-  // };
-  //
-  // articleView.handleCategoryFilter = function() {
-  //   $('#category-filter').on('change', function() {
-  //     if ($(this).val()) {
-  //       $('article').hide();
-  //       $('article[data-category="' + $(this).val() + '"]').fadeIn();
-  //     } else {
-  //       $('article').fadeIn();
-  //       $('article.template').hide();
-  //     }
-  //     $('#author-filter').val('');
-  //   });
-  // };
-
-  // DONE: Remove the setTeasers method, and replace with a plain ole link in the article template.
-  // articleView.setTeasers = function() {
-  //   $('.article-body *:nth-of-type(n+2)').hide();
-  //
-  //   $('#articles').on('click', 'a.read-on', function(e) {
-  //     e.preventDefault();
-  //     $(this).parent().find('*').fadeIn();
-  //     $(this).hide();
-  //   });
-  // };
 
   articleView.initNewArticlePage = function() {
     $('#articles').show().siblings().hide();
@@ -119,8 +87,10 @@
     $('#article-json').val(JSON.stringify(article) + ',');
   };
 
-  // COMMENT:  What is it's execution path?
-  // This method is showing all the articles and hiding the sibilings. 
+//Execution Path:When the user clicks the articles ,it hides its about sibling. Also removes all the articles and
+//appends the specific article being selected.
+
+  // This method is showing all the articles and hiding the sibilings.
   articleView.index = function(articles) {
     $('#articles').show().siblings().hide();
 
@@ -130,7 +100,8 @@
     });
 
     articleView.populateFilters();
-    // COMMENT: What is it's execution path?
+// Execution Path: Calling the populate filters.
+
     // Its  calling the the populate filers method of the article view object.
     articleView.handleFilters();
 
