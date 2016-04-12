@@ -9,7 +9,7 @@
       url: 'https://api.github.com/user/repos',
       type: 'GET',
       headers: {
-        'Authorization': 'token ' + 'd3044975093e6f7700567d526548dae07167ffac'
+        'Authorization': 'token ' + githubToken
       },
       success: function (data, message , xhr) {
         repos.all = data;
